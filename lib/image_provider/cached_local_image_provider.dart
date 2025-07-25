@@ -15,11 +15,11 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 /// IO implementation of the CachedNetworkImageProvider; the ImageProvider to
 /// load local images.
 @immutable
-class CachedNetworkImageProvider
-    extends ImageProvider<CachedNetworkImageProvider> {
+class CachedLocalImageProvider
+    extends ImageProvider<CachedLocalImageProvider> {
   /// Creates an ImageProvider which loads an image from the local [url] path, using the [scale].
   /// When the image fails to load [errorListener] is called.
-  const CachedNetworkImageProvider(
+  const CachedLocalImageProvider(
       this.url, {
         this.maxHeight,
         this.maxWidth,
@@ -66,16 +66,16 @@ class CachedNetworkImageProvider
   final ImageRenderMethodForWeb imageRenderMethodForWeb;
 
   @override
-  Future<CachedNetworkImageProvider> obtainKey(
+  Future<CachedLocalImageProvider> obtainKey(
       ImageConfiguration configuration,
       ) {
-    return SynchronousFuture<CachedNetworkImageProvider>(this);
+    return SynchronousFuture<CachedLocalImageProvider>(this);
   }
 
   @Deprecated('loadBuffer is deprecated, use loadImage instead')
   @override
   ImageStreamCompleter loadBuffer(
-      CachedNetworkImageProvider key,
+      CachedLocalImageProvider key,
       DecoderBufferCallback decode,
       ) {
     final chunkEvents = StreamController<ImageChunkEvent>();
@@ -85,7 +85,7 @@ class CachedNetworkImageProvider
       scale: key.scale,
       informationCollector: () => <DiagnosticsNode>[
         DiagnosticsProperty<ImageProvider>('Image provider', this),
-        DiagnosticsProperty<CachedNetworkImageProvider>('Image key', key),
+        DiagnosticsProperty<CachedLocalImageProvider>('Image key', key),
       ],
     );
 
@@ -105,7 +105,7 @@ class CachedNetworkImageProvider
 
   @Deprecated('_loadBufferAsync is deprecated, use _loadImageAsync instead')
   Stream<ui.Codec> _loadBufferAsync(
-      CachedNetworkImageProvider key,
+      CachedLocalImageProvider key,
       StreamController<ImageChunkEvent> chunkEvents,
       DecoderBufferCallback decode,
       ) {
@@ -126,7 +126,7 @@ class CachedNetworkImageProvider
 
   @override
   ImageStreamCompleter loadImage(
-      CachedNetworkImageProvider key,
+      CachedLocalImageProvider key,
       ImageDecoderCallback decode,
       ) {
     final chunkEvents = StreamController<ImageChunkEvent>();
@@ -136,7 +136,7 @@ class CachedNetworkImageProvider
       scale: key.scale,
       informationCollector: () => <DiagnosticsNode>[
         DiagnosticsProperty<ImageProvider>('Image provider', this),
-        DiagnosticsProperty<CachedNetworkImageProvider>('Image key', key),
+        DiagnosticsProperty<CachedLocalImageProvider>('Image key', key),
       ],
     );
 
@@ -155,7 +155,7 @@ class CachedNetworkImageProvider
   }
 
   Stream<ui.Codec> _loadImageAsync(
-      CachedNetworkImageProvider key,
+      CachedLocalImageProvider key,
       StreamController<ImageChunkEvent> chunkEvents,
       ImageDecoderCallback decode,
       ) {
@@ -176,7 +176,7 @@ class CachedNetworkImageProvider
 
   @override
   bool operator ==(Object other) {
-    if (other is CachedNetworkImageProvider) {
+    if (other is CachedLocalImageProvider) {
       return ((cacheKey ?? url) == (other.cacheKey ?? other.url)) &&
           scale == other.scale &&
           maxHeight == other.maxHeight &&

@@ -4,7 +4,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:octo_image/octo_image.dart';
 
 import 'cached_local_image_platform_interface.dart';
-import 'image_provider/cached_network_image_provider.dart';
+import 'image_provider/cached_local_image_provider.dart';
 
 /// Builder function to create an image widget. The function is called after
 /// the ImageProvider completes the image loading.
@@ -56,10 +56,10 @@ class CachedNetworkImage extends StatelessWidget {
         double scale = 1,
       }) async {
     // For local images, we only need to evict from memory cache
-    return CachedNetworkImageProvider(url, scale: scale).evict();
+    return CachedLocalImageProvider(url, scale: scale).evict();
   }
 
-  final CachedNetworkImageProvider _image;
+  final CachedLocalImageProvider _image;
 
   /// Option to use cacheManager with other settings
   /// Note: For local images, this is not used but kept for compatibility
@@ -245,7 +245,7 @@ class CachedNetworkImage extends StatelessWidget {
     ImageRenderMethodForWeb imageRenderMethodForWeb =
         ImageRenderMethodForWeb.HtmlImage,
     double scale = 1.0,
-  }) : _image = CachedNetworkImageProvider(
+  }) : _image = CachedLocalImageProvider(
     imageUrl,
     headers: httpHeaders,
     cacheManager: cacheManager,
