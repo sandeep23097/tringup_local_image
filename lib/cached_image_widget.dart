@@ -38,7 +38,7 @@ typedef LoadingErrorWidgetBuilder = Widget Function(
     );
 
 /// Image widget to show local images with caching functionality.
-class CachedNetworkImage extends StatelessWidget {
+class CachedLocalImage extends StatelessWidget {
   /// Get the current log level of the cache manager.
   static CacheManagerLogLevel get logLevel => CacheManager.logLevel;
 
@@ -208,11 +208,11 @@ class CachedNetworkImage extends StatelessWidget {
   /// Listener to be called when images fails to load.
   final ValueChanged<Object>? errorListener;
 
-  /// CachedNetworkImage shows a local image using a caching mechanism. It also
+  /// CachedLocalImage shows a local image using a caching mechanism. It also
   /// provides support for a placeholder, showing an error and fading into the
   /// loaded image. Next to that it supports most features of a default Image
   /// widget.
-  CachedNetworkImage({
+  CachedLocalImage({
     super.key,
     required this.imageUrl,
     this.httpHeaders,
@@ -266,7 +266,7 @@ class CachedNetworkImage extends StatelessWidget {
 
     ///If there is no placeholder OctoImage does not fade, so always set an
     ///(empty) placeholder as this always used to be the behaviour of
-    ///CachedNetworkImage.
+    ///CachedLocalImage.
     if (octoPlaceholderBuilder == null &&
         octoProgressIndicatorBuilder == null) {
       octoPlaceholderBuilder = (context) => Container();
